@@ -151,7 +151,7 @@ func New() (*temper, error) {
 	return t, nil
 }
 
-func (t *temper) Temperature() (float64, error) {
+func (t *temper) GetTemperature() (float64, error) {
 	log.Debugf("temperature() -> controlTransfer")
 	if ret, err := t.controlTransfer(uTemp); err != nil {
 		return 0.0, fmt.Errorf("Failed to read temperature: %v (error code: %v)", err, ret)

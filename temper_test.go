@@ -16,7 +16,7 @@ func TestNew(t *testing.T) {
 	require.Nil(err)
 	require.NotNil(temper)
 
-	temp, err := temper.Temperature()
+	temp, err := temper.GetTemperature()
 	require.Nil(err)
 	require.NotZero(temp)
 }
