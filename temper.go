@@ -29,9 +29,10 @@ type temper struct {
 	ctx   *gousb.Context
 	dev   *gousb.Device
 	iface *gousb.Interface
+	name  string
 }
 
-func New() (*temper, error) {
+func New(name string) (*temper, error) {
 	ctx := gousb.NewContext()
 	ctx.Debug(0)
 
@@ -73,6 +74,7 @@ func New() (*temper, error) {
 	*/
 
 	t := &temper{}
+	t.name = name
 	t.ctx = ctx
 	t.dev = devs[0]
 
