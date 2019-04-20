@@ -12,7 +12,7 @@ func TestNew(t *testing.T) {
 	require := require.New(t)
 	log.SetLevel(log.DebugLevel)
 
-	temper, err := New("test")
+	temper, err := New()
 	require.Nil(err)
 	require.NotNil(temper)
 
