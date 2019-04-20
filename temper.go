@@ -25,14 +25,14 @@ var (
 	uIni2   = []byte{0x01, 0x86, 0xff, 0x01, 0x00, 0x00, 0x00, 0x00}
 )
 
-type temper struct {
+type Temper struct {
 	ctx   *gousb.Context
 	dev   *gousb.Device
 	iface *gousb.Interface
 	name  string
 }
 
-func New(name string) (*temper, error) {
+func New(name string) (*Temper, error) {
 	ctx := gousb.NewContext()
 	ctx.Debug(0)
 
@@ -73,7 +73,7 @@ func New(name string) (*temper, error) {
 		}()
 	*/
 
-	t := &temper{}
+	t := &Temper{}
 	t.name = name
 	t.ctx = ctx
 	t.dev = devs[0]
@@ -153,7 +153,7 @@ func New(name string) (*temper, error) {
 	return t, nil
 }
 
-func (t *temper) GetTemperature() (float64, error) {
+func (t *Temper) GetTemperature() (float64, error) {
 	log.Debugf("temperature() -> controlTransfer")
 	if ret, err := t.controlTransfer(uTemp); err != nil {
 		return 0.0, fmt.Errorf("Failed to read temperature: %v (error code: %v)", err, ret)
@@ -172,11 +172,11 @@ func (t *temper) GetTemperature() (float64, error) {
 	return temp, nil
 }
 
-func (t *temper) controlTransfer(bytes []byte) (int, error) {
+func (t *Temper) controlTransfer(bytes []byte) (int, error) {
 	return t.dev.Control(0x21, 0x09, 0x0200, 0x01, bytes)
 }
 
-func (t *temper) interrupt_read(data []byte) (int, error) {
+func (t *Temper) interrupt_read(data []byte) (int, error) {
 	iface := t.iface
 	ep, err := iface.InEndpoint(0x82)
 	if err != nil {
